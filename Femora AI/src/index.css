@@ -1,0 +1,132 @@
+/* Google Fonts — must be first */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&display=swap');
+
+@import "tailwindcss";
+
+/* ============================
+   Femora AI — Design System (Tailwind v4)
+   ============================ */
+
+@theme {
+  /* Lavender palette */
+  --color-lavender-50: #faf5ff;
+  --color-lavender-100: #f3e8ff;
+  --color-lavender-200: #e9d5ff;
+  --color-lavender-300: #d8b4fe;
+  --color-lavender-400: #c084fc;
+  --color-lavender-500: #a855f7;
+  --color-lavender-600: #9333ea;
+  --color-lavender-700: #7e22ce;
+
+  /* Custom font families */
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+/* ---------- Base Styles ---------- */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  color: #1e293b;
+  background: linear-gradient(135deg, #faf5ff 0%, #fdf2f8 25%, #fff1f2 50%, #f0f4ff 75%, #f8fafc 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+/* ---------- Scrollbar ---------- */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #d8b4fe; border-radius: 999px; }
+
+/* ---------- Glass Card ---------- */
+.glass-card {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 1.5rem;
+  box-shadow:
+    0 8px 32px rgba(168, 85, 247, 0.06),
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  transform: translateY(-4px);
+  box-shadow:
+    0 16px 48px rgba(168, 85, 247, 0.12),
+    0 4px 12px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.7);
+}
+
+/* ---------- Gradient Text ---------- */
+.gradient-text {
+  background: linear-gradient(135deg, #a855f7, #ec4899, #f472b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ---------- Animated Gradient BG ---------- */
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.animated-gradient {
+  background-size: 200% 200%;
+  animation: gradientShift 6s ease infinite;
+}
+
+/* ---------- Pulse Ring ---------- */
+@keyframes pulseRing {
+  0%   { transform: scale(0.92); opacity: 1; }
+  50%  { transform: scale(1.06); opacity: 0.7; }
+  100% { transform: scale(0.92); opacity: 1; }
+}
+.pulse-ring { animation: pulseRing 2.5s ease-in-out infinite; }
+
+/* ---------- Float ---------- */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-14px); }
+}
+.float-animation { animation: float 4s ease-in-out infinite; }
+
+/* ---------- Shimmer ---------- */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2.5s ease-in-out infinite;
+}
+
+/* ---------- Blob Animation ---------- */
+@keyframes blob {
+  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  25%      { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+  50%      { border-radius: 50% 60% 30% 60% / 40% 70% 60% 50%; }
+  75%      { border-radius: 60% 30% 50% 40% / 70% 40% 60% 30%; }
+}
+.blob { animation: blob 8s ease-in-out infinite; }
+
+/* ---------- Spin slow ---------- */
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.spin-slow { animation: spinSlow 20s linear infinite; }
