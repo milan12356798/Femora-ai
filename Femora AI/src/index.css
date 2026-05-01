@@ -9,18 +9,25 @@
 
 @theme {
   /* Lavender palette */
-  --color-lavender-50: #faf5ff;
-  --color-lavender-100: #f3e8ff;
-  --color-lavender-200: #e9d5ff;
-  --color-lavender-300: #d8b4fe;
-  --color-lavender-400: #c084fc;
-  --color-lavender-500: #a855f7;
-  --color-lavender-600: #9333ea;
-  --color-lavender-700: #7e22ce;
+  --color-lavender-50: #f5f3ff;
+  --color-lavender-100: #ede9fe;
+  --color-lavender-200: #ddd6fe;
+  --color-lavender-300: #c4b5fd;
+  --color-lavender-400: #a78bfa;
+  --color-lavender-500: #8b5cf6;
+  --color-lavender-600: #7c3aed;
+  --color-lavender-700: #6d28d9;
 
   /* Custom font families */
   --font-heading: 'Outfit', sans-serif;
   --font-body: 'Inter', sans-serif;
+}
+
+.emoji {
+  display: inline-block;
+  padding: 0 0.1em;
+  vertical-align: middle;
+  line-height: 1;
 }
 
 /* ---------- Base Styles ---------- */

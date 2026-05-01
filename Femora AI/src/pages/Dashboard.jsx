@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { Calendar, Droplet, Activity, Heart, CupSoda, Sparkles, TrendingUp, Moon, Sun, Flame } from 'lucide-react'
 import { AreaChart, Area, XAxis, YAxis, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts'
 
@@ -28,9 +29,9 @@ export default function Dashboard() {
           <h1 className="text-3xl font-heading font-bold text-slate-800">Your Health Overview</h1>
           <p className="text-slate-500 mt-1">Here's what's happening with your body today.</p>
         </div>
-        <button className="self-start sm:self-auto px-5 py-2.5 rounded-xl bg-white/70 border border-slate-100 shadow-sm font-medium text-sm text-slate-700 hover:bg-white hover:shadow-md transition-all flex items-center gap-2">
+        <Link to="/tracker" className="self-start sm:self-auto px-5 py-2.5 rounded-xl bg-white/70 border border-slate-100 shadow-sm font-medium text-sm text-slate-700 hover:bg-white hover:shadow-md transition-all flex items-center gap-2">
           <Sparkles className="w-4 h-4 text-lavender-500" /> Log Symptoms
-        </button>
+        </Link>
       </div>
 
       {/* ===== Top Row — 3 Primary Cards ===== */}
@@ -94,7 +95,7 @@ export default function Dashboard() {
           <div className="flex items-baseline gap-2 mb-1">
             <span className="text-5xl font-heading font-extrabold text-slate-900">Wk 14</span>
           </div>
-          <p className="text-sm text-slate-600 mb-4">Baby is the size of a lemon 🍋</p>
+          <p className="text-sm text-slate-600 mb-4">Baby is the size of a lemon <span className="emoji">🍋</span></p>
           <div className="p-3 bg-white/70 rounded-xl border border-white flex items-start gap-3">
             <Sparkles className="w-4 h-4 text-pink-400 mt-0.5 shrink-0" />
             <p className="text-xs text-slate-600 leading-relaxed">You might experience more energy this week as you enter the second trimester.</p>

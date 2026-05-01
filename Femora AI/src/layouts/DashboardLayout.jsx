@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
-import { LayoutDashboard, CalendarHeart, Baby, ActivitySquare, Settings, LogOut, Menu, Droplets, Sparkles, Bell, LineChart, Stethoscope, HeartPulse } from 'lucide-react'
+import { LayoutDashboard, CalendarHeart, Baby, ActivitySquare, Settings, LogOut, Menu, Droplets, Sparkles, Bell, LineChart, Stethoscope, HeartPulse, Bot } from 'lucide-react'
 
 const navItems = [
   { icon: <LayoutDashboard className="w-5 h-5" />, label: 'Overview', path: '/dashboard' },
@@ -9,9 +9,10 @@ const navItems = [
   { icon: <Baby className="w-5 h-5" />, label: 'Pregnancy', path: '/pregnancy' },
   { icon: <HeartPulse className="w-5 h-5" />, label: 'PCOS Wellness', path: '/pcos' },
   { icon: <Stethoscope className="w-5 h-5" />, label: 'High-Risk Pregnancy', path: '/pregnancy-wellness' },
-  { icon: <Bell className="w-5 h-5" />, label: 'Reminders', path: '/reminders' },
+  { icon: <Bot className="w-5 h-5" />, label: 'AI Assistant', path: '/ai-assistant' },
   { icon: <ActivitySquare className="w-5 h-5" />, label: 'Wellness', path: '/wellness' },
   { icon: <LineChart className="w-5 h-5" />, label: 'Analytics', path: '/analytics' },
+  { icon: <Bell className="w-5 h-5" />, label: 'Reminders', path: '/reminders' },
 ]
 
 export default function DashboardLayout() {
@@ -118,7 +119,7 @@ export default function DashboardLayout() {
               <Menu className="w-6 h-6" />
             </button>
             <div>
-              <h2 className="font-heading font-semibold text-lg text-slate-800">Welcome back, {userName} 👋</h2>
+              <h2 className="font-heading font-semibold text-lg text-slate-800">Welcome back, {userName} <span className="emoji">👋</span></h2>
               <p className="text-xs text-slate-400 hidden sm:block">Here's your health summary for today</p>
             </div>
           </div>

@@ -56,6 +56,7 @@ export default function PCOSWellness() {
   const item = { hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } } }
 
   const [logSeverity, setLogSeverity] = useState(3)
+  const [selectedSymptom, setSelectedSymptom] = useState("Hormonal Acne")
   const [aiData, setAiData] = useState({
     insights: [
       "Cycle variability increased this month.",
@@ -68,7 +69,7 @@ export default function PCOSWellness() {
 
   const handleLogSymptom = async () => {
     setIsLoading(true)
-    const result = await getAIInsights(["Hormonal Acne"], logSeverity)
+    const result = await getAIInsights([selectedSymptom], logSeverity)
     if (result) {
       setAiData(result)
     }
@@ -206,7 +207,11 @@ export default function PCOSWellness() {
             </div>
             <div>
               <label className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 block">Symptom Type</label>
-              <select className="w-full p-2.5 rounded-xl border-0 bg-slate-50 focus:ring-2 focus:ring-lavender-400 outline-none text-sm text-slate-700">
+              <select 
+                value={selectedSymptom}
+                onChange={e => setSelectedSymptom(e.target.value)}
+                className="w-full p-2.5 rounded-xl border-0 bg-slate-50 focus:ring-2 focus:ring-lavender-400 outline-none text-sm text-slate-700"
+              >
                 <option>Hormonal Acne</option>
                 <option>Mood Swings</option>
                 <option>Fatigue</option>

@@ -35,7 +35,13 @@ const radarData = [
   { metric: 'Mood', value: 80, fullMark: 100 },
 ]
 
-const moodEmojis = ['😢', '😟', '😐', '🙂', '😊']
+const moodEmojis = [
+  <span className="emoji">😢</span>, 
+  <span className="emoji">😟</span>, 
+  <span className="emoji">😐</span>, 
+  <span className="emoji">🙂</span>, 
+  <span className="emoji">😊</span>
+]
 const stressLabels = ['Very Low', 'Low', 'Moderate', 'High', 'Very High']
 
 /* ===== Custom Tooltip ===== */
@@ -197,7 +203,7 @@ export default function WellnessTracker() {
               <p className="text-xs text-slate-400">How are you feeling right now?</p>
             </div>
           </div>
-          <div className="flex justify-between items-center bg-slate-50/60 p-3 rounded-2xl border border-white">
+          <div className="flex flex-wrap items-center justify-center gap-2 bg-slate-50/60 p-3 rounded-2xl border border-white">
             {moodEmojis.map((emoji, idx) => (
               <button
                 key={idx}

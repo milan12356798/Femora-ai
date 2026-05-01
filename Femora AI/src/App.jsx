@@ -11,6 +11,7 @@ import Reminders from './pages/Reminders'
 import AnalyticsDashboard from './pages/AnalyticsDashboard'
 import PCOSWellness from './pages/PCOSWellness'
 import PregnancyWellness from './pages/PregnancyWellness'
+import AiAssistant from './pages/AiAssistant'
 
 // Helper component to protect routes
 const ProtectedRoute = ({ children }) => {
@@ -42,6 +43,7 @@ export default function App() {
           <Route path="/analytics" element={<AnalyticsDashboard />} />
           <Route path="/pcos" element={<PCOSWellness />} />
           <Route path="/pregnancy-wellness" element={<PregnancyWellness />} />
+          <Route path="/ai-assistant" element={<AiAssistant />} />
         </Route>
       </Routes>
     </AuthProvider>

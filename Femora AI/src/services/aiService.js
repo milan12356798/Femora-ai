@@ -14,22 +14,41 @@ export const getAIInsights = async (symptoms, severity) => {
   }
 
   try {
-    const response = await fetch(`${COLAB_URL}/api/insights`, {
+    const response = await fetch(`${COLAB_URL}/chatbot/predict-pcos`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         symptoms: symptoms,
-        severity: parseInt(severity),
-        duration: "30 days"
+        user_metrics: {
+          severity: parseInt(severity),
+          duration: "30 days"
+        }
       }),
     });
 
     if (!response.ok) throw new Error('Backend response error');
-    return await response.json();
+    const result = await response.json();
+    return result.data; // Return the 'data' part of the FastAPI response
   } catch (error) {
     console.error('Error fetching AI insights:', error);
+    return null;
+  }
+};
+
+export const logCycleData = async (data) => {
+  if (!COLAB_URL) return { status: 'success' };
+
+  try {
+    const response = await fetch(`${COLAB_URL}/cycle/log`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+    return await response.json();
+  } catch (error) {
+    console.error('Error logging cycle:', error);
     return null;
   }
 };

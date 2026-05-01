@@ -1,12 +1,15 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Calendar, Heart, Activity, Droplet, Sun, Moon, Info } from 'lucide-react'
+import { Calendar, Heart, Activity, Droplet, Sun, Moon, Info, Sparkles, ChevronDown } from 'lucide-react'
+import { logCycleData } from '../services/aiService'
 
 export default function PeriodTracker() {
   const [lastPeriod, setLastPeriod] = useState(new Date().toISOString().split('T')[0])
   const [cycleLength, setCycleLength] = useState(28)
   const [symptoms, setSymptoms] = useState([])
   const [mood, setMood] = useState('')
+  const [flow, setFlow] = useState('Medium')
+  const [isLoading, setIsLoading] = useState(false)
 
   // Calculations
   const calculateCycle = () => {
@@ -44,6 +47,25 @@ export default function PeriodTracker() {
     }
   }
 
+  const handleSave = async () => {
+    if (!mood) {
+      alert("Please select a mood before saving.")
+      return
+    }
+    setIsLoading(true)
+    const payload = {
+      start_date: lastPeriod,
+      symptoms: symptoms,
+      mood: mood,
+      flow: flow
+    }
+    const res = await logCycleData(payload)
+    if (res) {
+      alert("Success! Your period log has been saved to your health history.")
+    }
+    setIsLoading(false)
+  }
+
   const cycleData = calculateCycle()
 
   const toggleSymptom = (symptom) => {
@@ -55,20 +77,20 @@ export default function PeriodTracker() {
   }
 
   const availableSymptoms = [
-    { id: 'cramps', label: 'Cramps', icon: '⚡' },
-    { id: 'headache', label: 'Headache', icon: '🤕' },
-    { id: 'bloating', label: 'Bloating', icon: '🎈' },
-    { id: 'fatigue', label: 'Fatigue', icon: '🥱' },
-    { id: 'acne', label: 'Acne', icon: '😶‍🌫️' },
-    { id: 'tender', label: 'Tender Breasts', icon: '🌸' },
+    { id: 'cramps', label: 'Cramps', icon: <span className="emoji">⚡</span> },
+    { id: 'headache', label: 'Headache', icon: <span className="emoji">🤕</span> },
+    { id: 'bloating', label: 'Bloating', icon: <span className="emoji">🎈</span> },
+    { id: 'fatigue', label: 'Fatigue', icon: <span className="emoji">🥱</span> },
+    { id: 'acne', label: 'Acne', icon: <span className="emoji">😶‍🌫️</span> },
+    { id: 'tender', label: 'Tender Breasts', icon: <span className="emoji">🌸</span> },
   ]
 
   const moods = [
-    { id: 'happy', label: 'Happy', emoji: '😊' },
-    { id: 'calm', label: 'Calm', emoji: '😌' },
-    { id: 'sad', label: 'Sad', emoji: '😢' },
-    { id: 'anxious', label: 'Anxious', emoji: '😰' },
-    { id: 'angry', label: 'Angry', emoji: '😠' },
+    { id: 'happy', label: 'Happy', emoji: <span className="emoji">😊</span> },
+    { id: 'calm', label: 'Calm', emoji: <span className="emoji">😌</span> },
+    { id: 'sad', label: 'Sad', emoji: <span className="emoji">😢</span> },
+    { id: 'anxious', label: 'Anxious', emoji: <span className="emoji">😰</span> },
+    { id: 'angry', label: 'Angry', emoji: <span className="emoji">😠</span> },
   ]
 
   const containerVars = {
@@ -152,7 +174,7 @@ export default function PeriodTracker() {
             <h3 className="font-semibold text-slate-800 mb-4 flex items-center gap-2">
               <Heart className="w-5 h-5 text-rose-500" /> Today's Mood
             </h3>
-            <div className="flex justify-between">
+            <div className="flex flex-wrap items-center justify-start gap-1 sm:gap-2">
               {moods.map(m => (
                 <button
                   key={m.id}
@@ -167,6 +189,39 @@ export default function PeriodTracker() {
               ))}
             </div>
           </div>
+
+          <div className="glass-card bg-white/60 p-6">
+            <h3 className="font-semibold text-slate-800 mb-4 flex items-center gap-2">
+              <Droplet className="w-5 h-5 text-rose-500" /> Blood Flow
+            </h3>
+            <div className="grid grid-cols-3 gap-2">
+              {['Light', 'Medium', 'Heavy'].map(f => (
+                <button
+                  key={f}
+                  onClick={() => setFlow(f)}
+                  className={`py-2 rounded-xl text-xs font-bold transition-all border
+                    ${flow === f ? 'bg-rose-100 border-rose-200 text-rose-700' : 'bg-white border-slate-100 text-slate-500 hover:bg-slate-50'}
+                  `}
+                >
+                  {f}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <button 
+            className="w-full py-4 rounded-2xl bg-gradient-to-r from-lavender-600 to-pink-600 text-white font-bold shadow-lg shadow-lavender-500/25 hover:shadow-xl hover:shadow-lavender-500/35 transition-all active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50"
+            onClick={handleSave}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+            ) : (
+              <>
+                <Sparkles className="w-5 h-5" /> Save to History
+              </>
+            )}
+          </button>
 
         </motion.div>
 

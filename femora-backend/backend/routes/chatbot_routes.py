@@ -16,7 +16,8 @@ class PCOSPredictionRequest(BaseModel):
 
 class ChatRequest(BaseModel):
     message: str
-    user_context: Optional[Dict[str, Any]] = None
+    history: Optional[List[Dict[str, str]]] = []
+    userData: Optional[Dict[str, Any]] = None
 
 @router.post("/predict-cycle", tags=["AI Integration"])
 async def predict_cycle(data: CyclePredictionRequest = Body(...)):
@@ -34,7 +35,15 @@ async def predict_pcos(data: PCOSPredictionRequest = Body(...)):
 
 @router.post("/chat", tags=["AI Integration"])
 async def chat_with_ai(data: ChatRequest = Body(...)):
-    response = await med_gemma.chat(data.message, data.user_context)
+    # Standard endpoint for the production-ready chatbot
+    response = await med_gemma.chat(data.message, data.history, data.userData)
     if response.get("status") == "error":
-        raise HTTPException(status_code=503, detail=response["message"])
+        # Return the specific error message requested by the user
+        return {
+            "status": "success", # Return success to avoid frontend crash, but with error message in reply
+            "data": {
+                "reply": response["message"],
+                "suggestions": ["Try again", "Refresh page"]
+            }
+        }
     return response
